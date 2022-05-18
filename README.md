@@ -1,3 +1,1 @@
 # Form a DMARC Record
-
-
