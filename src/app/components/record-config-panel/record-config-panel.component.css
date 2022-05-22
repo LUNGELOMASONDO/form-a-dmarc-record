@@ -1,0 +1,10 @@
+#config-panel {
+    font-size: 0.8rem;
+    border-left: none;
+    border-right: none;
+    border-radius: 0px;
+}
+
+#config-panel > legend {
+    padding: 5px 10px;
+}
