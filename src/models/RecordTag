@@ -1,0 +1,7 @@
+import { TagImportance } from '../models/TagImportance';
+
+interface RecordTag
+{
+    tag: string;
+    readonly importance: TagImportance;
+}
