@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
 import { DmarcRecordPanelComponent } from './components/dmarc-record-panel/dmarc-record-panel.component';
@@ -7,6 +8,9 @@ import { ResourceRecordFieldComponent } from './components/resource-record-field
 import { InfoPopupComponent } from './components/info-popup/info-popup.component';
 import { RecordConfigPanelComponent } from './components/record-config-panel/record-config-panel.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { ReadinessMessageComponent } from './components/readiness-message/readiness-message.component';
+import { TagDmarcversionComponent } from './components/tag-dmarcversion/tag-dmarcversion.component';
+import { TagPolicyComponent } from './components/tag-policy/tag-policy.component';
 
 @NgModule({
   declarations: [
@@ -15,10 +19,14 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
     ResourceRecordFieldComponent,
     InfoPopupComponent,
     RecordConfigPanelComponent,
-    NavBarComponent
+    NavBarComponent,
+    ReadinessMessageComponent,
+    TagDmarcversionComponent,
+    TagPolicyComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

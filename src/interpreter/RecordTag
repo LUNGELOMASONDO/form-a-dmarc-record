@@ -1,0 +1,13 @@
+class RecordTag 
+{
+    public readonly tag!: string;
+    public values!: string[];
+    public readonly isMandatory: boolean;
+
+    public constructor(IsMandatory: boolean, Tag: string, NumOfValues: number)
+    {
+        this.isMandatory = IsMandatory;
+        this.tag = Tag;
+        this.values = [];
+    }
+}
