@@ -5,6 +5,4 @@ export class PolicyTag implements IDMARCRecordTag{
     tag = "p";
     importance = TagImportance.MANDATORY;
     value?: string;
-
-    
 }
