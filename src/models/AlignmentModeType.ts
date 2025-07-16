@@ -1,0 +1,1 @@
+export type AlignmentMode = "r" | "s";

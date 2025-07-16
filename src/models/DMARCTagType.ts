@@ -1,0 +1,1 @@
+export type DMARC1Tag = "v" | "pct" | "ruf" | "rua" | "p" | "sp" | "adkim" | "aspf" | "fo" | "rf" | "ri";

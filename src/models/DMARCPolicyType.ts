@@ -1,0 +1,1 @@
+export type DMARCPolicy = "none" | "quarantine" | "reject";
