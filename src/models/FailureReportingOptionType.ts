@@ -1,0 +1,1 @@
+export type FailureReportingOption = "0" | "1" | "d" | "s";
