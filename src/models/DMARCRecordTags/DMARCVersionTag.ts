@@ -1,6 +1,6 @@
 import { IDMARC1RecordTag } from '../IDMARC1RecordTag';
 import { TagImportance } from '../TagImportance';
-import { DMARCVersion } from '../DMARCVersionType'
+import { DMARCVersion } from '../DMARCVersionType';
 
 export class DMARCVersionTag implements IDMARC1RecordTag{
     readonly tag = 'v';
@@ -25,4 +25,5 @@ export class DMARCVersionTag implements IDMARC1RecordTag{
         return true;
     }
     */
+  
 }

@@ -14,6 +14,4 @@ export class DMARCRecord {
 
         return isValid;
     }
-
-
 }
