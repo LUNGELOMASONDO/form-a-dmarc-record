@@ -1,9 +1,8 @@
 <label>
     <fa-icon style="color:grey;cursor:pointer;" [icon]="faInfo"></fa-icon>
-     p: Policy
+     {{ policy.tag }}: {{ policy.purpose }}
 </label>
-<select id="dmarcpolicy" name="dmarcpolicy">
-    <option></option>
+<select id="dmarcpolicy" name="dmarcpolicy" (change)="OnselectPolicyEnforcementMode($event)" [value]="policy.value">
     <option value="none"> none </option>
     <option value="quarantine"> quarantine </option>
     <option value="reject"> reject </option>

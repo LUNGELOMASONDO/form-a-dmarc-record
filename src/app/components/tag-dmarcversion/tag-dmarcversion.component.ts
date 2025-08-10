@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { inject } from '@angular/core/testing';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { DmarcversiontagService } from 'src/app/services/dmarc1tags/dmarcversion-tag/dmarcversiontag.service';
+import { DMARCVersionTag } from 'src/models/DMARCRecordTags/DMARCVersionTag';
+import { DMARC1Tag } from 'src/models/DMARCTagType';
 
 @Component({
   selector: 'app-tag-dmarcversion',
@@ -8,10 +12,13 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 })
 export class TagDmarcversionComponent implements OnInit {
   faInfo = faInfoCircle;
+  dmarcVersion!: DMARCVersionTag;
 
-  constructor() { }
+  constructor(private dmarcVersiontagService: DmarcversiontagService) { }
 
   ngOnInit(): void {
+    this.dmarcVersiontagService.setTag(new DMARCVersionTag());
+    this.dmarcVersion = this.dmarcVersiontagService.getTag();
   }
 
 }

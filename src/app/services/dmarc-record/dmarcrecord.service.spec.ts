@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UiDmarcRecordService } from './ui-dmarc-record.service';
+import { DmarcrecordService } from './dmarcrecord.service';
 
-describe('UiDmarcRecordService', () => {
-  let service: UiDmarcRecordService;
+describe('DmarcrecordService', () => {
+  let service: DmarcrecordService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UiDmarcRecordService);
+    service = TestBed.inject(DmarcrecordService);
   });
 
   it('should be created', () => {

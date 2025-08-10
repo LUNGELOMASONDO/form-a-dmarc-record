@@ -1,8 +1,7 @@
 <label>
     <fa-icon style="color:grey;cursor:pointer;" [icon]="faInfo"></fa-icon>
-     v: DMARC version 
+     {{ this.dmarcVersion.tag }}: {{ this.dmarcVersion.purpose }} 
 </label>
-<select id="dmarcversion" name="dmarcversion">
-    <option></option>
-    <option value="DMARC1">DMARC1</option>
+<select id="dmarcversion" name="dmarcversion" [value]="this.dmarcVersion.value">
+    <option value="DMARC1">{{ this.dmarcVersion.value }}</option>
 </select>

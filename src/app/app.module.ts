@@ -11,7 +11,6 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ReadinessMessageComponent } from './components/readiness-message/readiness-message.component';
 import { TagDmarcversionComponent } from './components/tag-dmarcversion/tag-dmarcversion.component';
 import { TagPolicyComponent } from './components/tag-policy/tag-policy.component';
-import { UiDmarcRecordService } from './services/ui-dmarc-record.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +28,7 @@ import { UiDmarcRecordService } from './services/ui-dmarc-record.service';
     BrowserModule,
     FontAwesomeModule
   ],
-  providers: [UiDmarcRecordService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
