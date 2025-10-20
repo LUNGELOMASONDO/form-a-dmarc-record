@@ -5,11 +5,9 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './resource-record-field.component.html',
   styleUrls: ['./resource-record-field.component.css']
 })
-export class ResourceRecordFieldComponent implements OnInit {
+export class ResourceRecordFieldComponent {
+  dmarcRecordTXT!: string;
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

@@ -11,6 +11,9 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ReadinessMessageComponent } from './components/readiness-message/readiness-message.component';
 import { TagDmarcversionComponent } from './components/tag-dmarcversion/tag-dmarcversion.component';
 import { TagPolicyComponent } from './components/tag-policy/tag-policy.component';
+import { TagRuaComponent } from './components/tag-rua/tag-rua.component';
+import { TagRufComponent } from './components/tag-ruf/tag-ruf.component';
+import { TaglabelComponent } from './components/taglabel/taglabel.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { TagPolicyComponent } from './components/tag-policy/tag-policy.component
     NavBarComponent,
     ReadinessMessageComponent,
     TagDmarcversionComponent,
-    TagPolicyComponent
+    TagPolicyComponent,
+    TagRuaComponent,
+    TagRufComponent,
+    TaglabelComponent,
   ],
   imports: [
     BrowserModule,

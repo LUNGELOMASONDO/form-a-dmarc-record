@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PolicytagService } from './policytag.service';
+import { BuildRecordService } from './build-record.service';
 
-describe('PolicytagService', () => {
-  let service: PolicytagService;
+describe('BuildRecordService', () => {
+  let service: BuildRecordService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(PolicytagService);
+    service = TestBed.inject(BuildRecordService);
   });
 
   it('should be created', () => {

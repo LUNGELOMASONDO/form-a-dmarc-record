@@ -12,22 +12,15 @@ import { DMARCVersion } from './DMARCVersionType';
 
 export class DMARCRecord {
 
-    v: DMARCVersionTag;
-    p: PolicyTag;
-    pct!: PercentageTag;
-    sp!: SubDomainPolicyTag;
-    rua!: URIAggregateTag;
-    ruf!: URIForensicTag;
-    adkim!: AlignmentDKIMTag;
-    aspf!: AlignmentDKIMTag;
-    ri!: AgregateReportIntervalTag;
-    fo!: FailureReportingOptionsTag;
-    rf!: MessageSpecificFailureReportFormatTag;
-
-    constructor() {
-        this.v = new DMARCVersionTag;
-
-        this.p = new PolicyTag;
-        this.p.value = "none";
-    }
+    v!: DMARCVersionTag;
+    p!: PolicyTag;
+    pct?: PercentageTag;
+    sp?: SubDomainPolicyTag;
+    rua?: URIAggregateTag;
+    ruf?: URIForensicTag;
+    adkim?: AlignmentDKIMTag;
+    aspf?: AlignmentDKIMTag;
+    ri?: AgregateReportIntervalTag;
+    fo?: FailureReportingOptionsTag;
+    rf?: MessageSpecificFailureReportFormatTag;
 }
