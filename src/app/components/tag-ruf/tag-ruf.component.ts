@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { URIForensicTag } from 'src/models/DMARCRecordTags/URIForensicTag';
 
 @Component({
   selector: 'app-tag-ruf',
@@ -6,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tag-ruf.component.css']
 })
 export class TagRufComponent implements OnInit {
+  uriForensicReporting!: URIForensicTag;
   constructor() { }
 
   ngOnInit(): void {
+    this.uriForensicReporting = new URIForensicTag();
   }
 
 }

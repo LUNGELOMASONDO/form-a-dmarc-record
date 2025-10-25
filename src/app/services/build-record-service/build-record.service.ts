@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DMARCPolicy } from 'src/models/DMARCPolicyType';
 import { DMARCRecord } from 'src/models/DMARCRecord';
-import { DMARCVERSIONERROR, POLICYERROR } from 'src/models/DMARCRecordErrors';
 import { AgregateReportIntervalTag } from 'src/models/DMARCRecordTags/AggregateReportIntervalTag';
 import { DMARCVersionTag } from 'src/models/DMARCRecordTags/DMARCVersionTag';
 import { PercentageTag } from 'src/models/DMARCRecordTags/PercentageTag';
@@ -21,45 +20,36 @@ export class BuildRecordService {
     this.dmarcRecord = new DMARCRecord();
   }
 
-  getDMARCVersionTag(value: string): DMARCVersionTag {
-    
+  setDMARCVersionTag(value: DMARCVersion) {
     this.dmarcRecord.v = new DMARCVersionTag();
-    return this.dmarcRecord.v;
   }
 
-  getPolicyTag(value: DMARCPolicy): PolicyTag {
+  setPolicyTag(value: DMARCPolicy) {
     this.dmarcRecord.p = new PolicyTag();
     this.dmarcRecord.p.value = value;
-    return this.dmarcRecord.p;
   }
 
-  getAggregateReportURITag(value: string): URIAggregateTag | undefined {
+  setAggregateReportURITag(value: string) {
     this.dmarcRecord.rua = new URIAggregateTag();
     this.dmarcRecord.rua.value = "mailto:" +value;
-    return this.dmarcRecord.rua;
   }
 
-  getForensicReportURITag(value: string): URIForensicTag | undefined {
+  setForensicReportURITag(value: string) {
     this.dmarcRecord.ruf = new URIForensicTag();
     this.dmarcRecord.ruf.value = "mailto:" + value;
-    return this.dmarcRecord.ruf;
   }
 
-  getPercentageTag(value: number): PercentageTag | undefined {
+  setPercentageTag(value: number) {
     
     if(value > 0 || value <= 100) {
       this.dmarcRecord.pct = new PercentageTag();
       this.dmarcRecord.pct.value = value;
-      return this.dmarcRecord.pct;
     }
-
-    return undefined;
   }
 
-  getSubDomainPolicyTag(value: DMARCPolicy): SubDomainPolicyTag | undefined {
+  setSubDomainPolicyTag(value: DMARCPolicy) {
     this.dmarcRecord.sp = new SubDomainPolicyTag();
     this.dmarcRecord.sp.value = value;
-    return this.dmarcRecord.sp;
   }
 
 }
