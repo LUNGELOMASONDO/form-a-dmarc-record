@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "formadmarcrecord:build:production"
+              "buildTarget": "formadmarcrecord:build:production"
             },
             "development": {
-              "browserTarget": "formadmarcrecord:build:development"
+              "buildTarget": "formadmarcrecord:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "formadmarcrecord:build"
+            "buildTarget": "formadmarcrecord:build"
           }
         },
         "test": {
