@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { DMARCVersionTag } from 'src/models/DMARCRecordTags/DMARCVersionTag';
 
 @Component({
-  selector: 'app-tag-dmarcversion',
-  templateUrl: './tag-dmarcversion.component.html',
-  styleUrls: ['./tag-dmarcversion.component.css'],
+    selector: 'app-tag-dmarcversion',
+    templateUrl: './tag-dmarcversion.component.html',
+    styleUrls: ['./tag-dmarcversion.component.css'],
+    standalone: false
 })
 export class TagDmarcversionComponent implements OnInit {
   dmarcVersion!: DMARCVersionTag;
