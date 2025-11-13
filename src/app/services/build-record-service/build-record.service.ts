@@ -14,10 +14,18 @@ import { DMARCVersion } from 'src/models/DMARCVersionType';
   providedIn: 'root'
 })
 export class BuildRecordService {
-  protected dmarcRecord: DMARCRecord;
+  private dmarcRecord: DMARCRecord;
 
   constructor() { 
     this.dmarcRecord = new DMARCRecord();
+    this.dmarcRecord.v = new DMARCVersionTag();
+    this.dmarcRecord.v.value = "DMARC1";
+    this.dmarcRecord.p = new PolicyTag();
+    this.dmarcRecord.p.value = "none";
+  }
+
+  getDMARCRecord(): DMARCRecord {
+    return this.dmarcRecord;
   }
 
   setDMARCVersionTag(value: DMARCVersion) {
@@ -30,18 +38,28 @@ export class BuildRecordService {
   }
 
   setAggregateReportURITag(value: string) {
-    this.dmarcRecord.rua = new URIAggregateTag();
-    this.dmarcRecord.rua.value = "mailto:" +value;
+
+    if (this.isValidReportingURIFormat(value)){
+
+      this.dmarcRecord.rua = new URIAggregateTag();
+      this.dmarcRecord.rua.value = "mailto:" +value;
+    }
   }
 
   setForensicReportURITag(value: string) {
-    this.dmarcRecord.ruf = new URIForensicTag();
-    this.dmarcRecord.ruf.value = "mailto:" + value;
+
+    const uri = "mailto:" + value;
+
+    if (this.isValidReportingURIFormat(value)){
+
+      this.dmarcRecord.ruf = new URIForensicTag();
+      this.dmarcRecord.ruf.value = "mailto:" + value;
+    }
   }
 
   setPercentageTag(value: number) {
     
-    if(value > 0 || value <= 100) {
+    if(value >= 0 || value <= 100) {
       this.dmarcRecord.pct = new PercentageTag();
       this.dmarcRecord.pct.value = value;
     }
@@ -52,4 +70,23 @@ export class BuildRecordService {
     this.dmarcRecord.sp.value = value;
   }
 
+  toString(): string {
+    
+    let recordStr: string = "";
+
+    recordStr += this.dmarcRecord.v.tag + "=" + this.dmarcRecord.v.value + "; ";
+    recordStr += this.dmarcRecord.p.tag + "=" + this.dmarcRecord.p.value + "; ";
+
+    return recordStr
+  }
+  
+  private isValidReportingURIFormat(value: string): boolean {
+    const regexLiteral = "^mailto:[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+    let result = value.match(regexLiteral)
+
+    if(result!=null)
+      return true;
+    
+    return false;
+  }
 }

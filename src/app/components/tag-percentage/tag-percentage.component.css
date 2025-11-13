@@ -1,0 +1,10 @@
+#pct {
+    width: 100%;
+    padding: 10px 15px;
+    margin: 6px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+}

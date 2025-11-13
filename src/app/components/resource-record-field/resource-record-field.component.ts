@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { BuildRecordService } from 'src/app/services/build-record-service/build-record.service';
 
 @Component({
     selector: 'app-resource-record-field',
@@ -7,8 +8,13 @@ import { Component, OnInit } from '@angular/core';
     standalone: false
 })
 export class ResourceRecordFieldComponent {
-  dmarcRecordTXT!: string;
+  recordString?: string;
+  private buildRecordService = inject(BuildRecordService);
 
   constructor() { }
+
+  ngOnInit(): void {
+    this.recordString = this.buildRecordService.toString();
+  }
 
 }

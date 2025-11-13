@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit} from '@angular/core';
+import { BuildRecordService } from 'src/app/services/build-record-service/build-record.service';
 import { DMARCVersionTag } from 'src/models/DMARCRecordTags/DMARCVersionTag';
+import { DMARCVersion } from "src/models/DMARCVersionType";
 
 @Component({
     selector: 'app-tag-dmarcversion',
@@ -9,10 +11,16 @@ import { DMARCVersionTag } from 'src/models/DMARCRecordTags/DMARCVersionTag';
 })
 export class TagDmarcversionComponent implements OnInit {
   dmarcVersion!: DMARCVersionTag;
+  private buildrecordService = inject(BuildRecordService);
+  versionValue?: DMARCVersion;
+  versions: DMARCVersion[] = ["DMARC1"];
 
   constructor() { }
 
   ngOnInit(): void {
-    this.dmarcVersion = new DMARCVersionTag();
+    this.dmarcVersion = this.buildrecordService.getDMARCRecord().v;
+    this.versionValue = this.dmarcVersion.value;
   }
+
+  
 }

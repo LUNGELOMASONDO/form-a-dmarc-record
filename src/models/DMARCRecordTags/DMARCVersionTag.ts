@@ -5,6 +5,6 @@ import { DMARCVersion } from '../DMARCVersionType';
 export class DMARCVersionTag implements IDMARC1RecordTag{
     readonly tag = 'v';
     readonly importance = TagImportance.MANDATORY;
-    readonly value: DMARCVersion = "DMARC1"; 
+    value?: DMARCVersion; 
     readonly purpose = "Protocol version";
 }

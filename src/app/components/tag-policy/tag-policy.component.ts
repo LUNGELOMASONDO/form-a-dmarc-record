@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { BuildRecordService } from 'src/app/services/build-record-service/build-record.service';
 import { DMARCPolicy } from 'src/models/DMARCPolicyType';
 import { PolicyTag } from 'src/models/DMARCRecordTags/PolicyTag';
 
@@ -10,11 +11,15 @@ import { PolicyTag } from 'src/models/DMARCRecordTags/PolicyTag';
 })
 export class TagPolicyComponent implements OnInit{
   policy!: PolicyTag; 
+  private buildrecordService = inject(BuildRecordService);
+  policyValue?: DMARCPolicy;
+  policies = ["none", "quarantine", "reject"];
 
   constructor() { }
   
   ngOnInit(): void {
-    this.policy = new PolicyTag();
+    this.policy = this.buildrecordService.getDMARCRecord().p;
+    this.policyValue = this.policy.value;
   }
   
 }
