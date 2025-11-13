@@ -1,8 +1,12 @@
-<label>
-    <fa-icon style="color:grey;cursor:pointer;" [icon]="faInfo"></fa-icon>
-     v: DMARC version 
-</label>
-<select id="dmarcversion" name="dmarcversion">
-    <option></option>
-    <option value="DMARC1">DMARC1</option>
+<app-taglabel
+    [tagName]= this.dmarcVersion.tag
+    [tagPurpose]= this.dmarcVersion.purpose
+>
+</app-taglabel>
+<select id="dmarcversion" name="dmarcversion" [(ngModel)]="versionValue">
+    @for (dmarc_version of versions; track dmarc_version) {
+        <option [value]="dmarc_version">{{ dmarc_version }}</option>
+    } @empty {
+        <option>Error: Empty list of DMARC versions</option>
+    }
 </select>

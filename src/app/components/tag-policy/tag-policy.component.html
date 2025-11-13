@@ -1,10 +1,12 @@
-<label>
-    <fa-icon style="color:grey;cursor:pointer;" [icon]="faInfo"></fa-icon>
-     p: Policy
-</label>
-<select id="dmarcpolicy" name="dmarcpolicy">
-    <option></option>
-    <option value="none"> none </option>
-    <option value="quarantine"> quarantine </option>
-    <option value="reject"> reject </option>
+<app-taglabel
+    [tagName]= this.policy.tag
+    [tagPurpose]= this.policy.purpose
+>
+</app-taglabel>
+<select id="dmarcpolicy" name="dmarcpolicy"  [(ngModel)]="policyValue">
+    @for (p of policies; track p) {
+        <option [value]="p">{{ p }}</option>
+    } @empty {
+        <option>Error: Empty list of DMARC policies</option>
+    }
 </select>

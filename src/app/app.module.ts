@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { DmarcRecordPanelComponent } from './components/dmarc-record-panel/dmarc-record-panel.component';
@@ -11,7 +12,10 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ReadinessMessageComponent } from './components/readiness-message/readiness-message.component';
 import { TagDmarcversionComponent } from './components/tag-dmarcversion/tag-dmarcversion.component';
 import { TagPolicyComponent } from './components/tag-policy/tag-policy.component';
-import { UiDmarcRecordService } from './services/ui-dmarc-record.service';
+import { TagRuaComponent } from './components/tag-rua/tag-rua.component';
+import { TagRufComponent } from './components/tag-ruf/tag-ruf.component';
+import { TaglabelComponent } from './components/taglabel/taglabel.component';
+import { TagPercentageComponent } from './components/tag-percentage/tag-percentage.component';
 
 @NgModule({
   declarations: [
@@ -23,13 +27,18 @@ import { UiDmarcRecordService } from './services/ui-dmarc-record.service';
     NavBarComponent,
     ReadinessMessageComponent,
     TagDmarcversionComponent,
-    TagPolicyComponent
+    TagPolicyComponent,
+    TagRuaComponent,
+    TagRufComponent,
+    TaglabelComponent,
+    TagPercentageComponent,
   ],
   imports: [
     BrowserModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule
   ],
-  providers: [UiDmarcRecordService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
