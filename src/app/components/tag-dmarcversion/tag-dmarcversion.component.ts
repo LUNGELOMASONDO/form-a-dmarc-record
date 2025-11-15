@@ -18,7 +18,7 @@ export class TagDmarcversionComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.dmarcVersion = this.buildrecordService.getDMARCRecord().v;
+    this.dmarcVersion = this.buildrecordService.DMARCRecord.v;
     this.versionValue = this.dmarcVersion.value;
   }
 

@@ -24,20 +24,20 @@ export class BuildRecordService {
     this.dmarcRecord.p.value = "none";
   }
 
-  getDMARCRecord(): DMARCRecord {
+  get DMARCRecord(): DMARCRecord {
     return this.dmarcRecord;
   }
 
-  setDMARCVersionTag(value: DMARCVersion) {
+  set DMARCVersionTag(value: DMARCVersion) {
     this.dmarcRecord.v = new DMARCVersionTag();
   }
 
-  setPolicyTag(value: DMARCPolicy) {
+  set PolicyTag(value: DMARCPolicy) {
     this.dmarcRecord.p = new PolicyTag();
     this.dmarcRecord.p.value = value;
   }
 
-  setAggregateReportURITag(value: string) {
+  set AggregateReportURITag(value: string) {
 
     if (this.isValidReportingURIFormat(value)){
 
@@ -46,7 +46,7 @@ export class BuildRecordService {
     }
   }
 
-  setForensicReportURITag(value: string) {
+  set ForensicReportURITag(value: string) {
 
     const uri = "mailto:" + value;
 
@@ -57,7 +57,7 @@ export class BuildRecordService {
     }
   }
 
-  setPercentageTag(value: number) {
+  set PercentageTag(value: number) {
     
     if(value >= 0 || value <= 100) {
       this.dmarcRecord.pct = new PercentageTag();
@@ -65,7 +65,7 @@ export class BuildRecordService {
     }
   }
 
-  setSubDomainPolicyTag(value: DMARCPolicy) {
+  set SubDomainPolicyTag(value: DMARCPolicy) {
     this.dmarcRecord.sp = new SubDomainPolicyTag();
     this.dmarcRecord.sp.value = value;
   }
