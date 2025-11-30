@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, computed, signal, WritableSignal } from '@angular/core';
 import { DMARCPolicy } from 'src/models/DMARCPolicyType';
 import { DMARCRecord } from 'src/models/DMARCRecord';
 import { AgregateReportIntervalTag } from 'src/models/DMARCRecordTags/AggregateReportIntervalTag';
@@ -14,79 +14,96 @@ import { DMARCVersion } from 'src/models/DMARCVersionType';
   providedIn: 'root'
 })
 export class BuildRecordService {
-  private dmarcRecord: DMARCRecord;
+
+  private _dmarcRecord: WritableSignal<DMARCRecord> = signal(Object.assign(new DMARCRecord(), {
+    v: (() => { const t = new DMARCVersionTag(); t.value = 'DMARC1'; return t; })(),
+    p: (() => { const t = new PolicyTag(); t.value = 'none'; return t; })()
+  }));
+
+  readonly DMARCRecord = this._dmarcRecord.asReadonly();
+
+  readonly txtdmarcrecord = computed(() => {
+    let recordStr: string = "";
+
+    recordStr += this._dmarcRecord().v.tag + "=" + this._dmarcRecord().v.value + "; ";
+    recordStr += this._dmarcRecord().p.tag + "=" + this._dmarcRecord().p.value + "; ";
+
+    return recordStr
+  });
 
   constructor() { 
-    this.dmarcRecord = new DMARCRecord();
-    this.dmarcRecord.v = new DMARCVersionTag();
-    this.dmarcRecord.v.value = "DMARC1";
-    this.dmarcRecord.p = new PolicyTag();
-    this.dmarcRecord.p.value = "none";
-  }
 
-  get DMARCRecord(): DMARCRecord {
-    return this.dmarcRecord;
   }
 
   set DMARCVersionTag(value: DMARCVersion) {
-    this.dmarcRecord.v = new DMARCVersionTag();
+    this._dmarcRecord.update(r => ({...r, v: (() => { 
+        const t = new DMARCVersionTag(); 
+        t.value = value; 
+        return t; 
+      })()
+    }));
   }
 
   set PolicyTag(value: DMARCPolicy) {
-    this.dmarcRecord.p = new PolicyTag();
-    this.dmarcRecord.p.value = value;
+    this._dmarcRecord.update(r => ({...r, p: (() => { 
+        const t = new PolicyTag(); 
+        t.value = value; 
+        return t; 
+      })()
+    }));
   }
 
   set AggregateReportURITag(value: string) {
 
-    if (this.isValidReportingURIFormat(value)){
+    const uri = value.startsWith('mailto:') ? value : `mailto:${value}`;
 
-      this.dmarcRecord.rua = new URIAggregateTag();
-      this.dmarcRecord.rua.value = "mailto:" +value;
+    if (this._isValidReportingURIFormat(uri)) {
+      this._dmarcRecord.update(r => ({...r, rua: (() => { 
+          const t = new URIAggregateTag(); 
+          t.value = uri; 
+          return t; 
+        })()
+      }));
     }
   }
 
   set ForensicReportURITag(value: string) {
 
-    const uri = "mailto:" + value;
+    const uri = value.startsWith('mailto:') ? value : `mailto:${value}`;
 
-    if (this.isValidReportingURIFormat(value)){
-
-      this.dmarcRecord.ruf = new URIForensicTag();
-      this.dmarcRecord.ruf.value = "mailto:" + value;
+    if (this._isValidReportingURIFormat(uri)) {
+      this._dmarcRecord.update(r => ({...r, ruf: (() => { 
+          const t = new URIForensicTag(); 
+          t.value = uri; 
+          return t; 
+        })()
+      }));
     }
   }
 
   set PercentageTag(value: number) {
     
-    if(value >= 0 || value <= 100) {
-      this.dmarcRecord.pct = new PercentageTag();
-      this.dmarcRecord.pct.value = value;
+    if (value >= 0 && value <= 100) {
+      this._dmarcRecord.update(r => ({...r, pct: (() => { 
+          const t = new PercentageTag(); 
+          t.value = value; 
+          return t; 
+        })()
+      }));
     }
   }
 
   set SubDomainPolicyTag(value: DMARCPolicy) {
-    this.dmarcRecord.sp = new SubDomainPolicyTag();
-    this.dmarcRecord.sp.value = value;
-  }
-
-  toString(): string {
-    
-    let recordStr: string = "";
-
-    recordStr += this.dmarcRecord.v.tag + "=" + this.dmarcRecord.v.value + "; ";
-    recordStr += this.dmarcRecord.p.tag + "=" + this.dmarcRecord.p.value + "; ";
-
-    return recordStr
+    this._dmarcRecord.update(r => ({...r, sp: (() => { 
+        const t = new SubDomainPolicyTag(); 
+        t.value = value; 
+        return t; 
+      })()
+    }));
   }
   
-  private isValidReportingURIFormat(value: string): boolean {
-    const regexLiteral = "^mailto:[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-    let result = value.match(regexLiteral)
-
-    if(result!=null)
-      return true;
-    
-    return false;
+  private _isValidReportingURIFormat(value: string): boolean {
+    const regex = /^mailto:[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(value);
   }
 }

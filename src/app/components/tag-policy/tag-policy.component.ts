@@ -18,7 +18,7 @@ export class TagPolicyComponent implements OnInit{
   constructor() { }
   
   ngOnInit(): void {
-    this.policy = this.buildrecordService.DMARCRecord.p;
+    this.policy = this.buildrecordService.DMARCRecord().p;
     this.policyValue = this.policy.value;
   }
 

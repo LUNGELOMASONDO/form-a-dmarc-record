@@ -14,7 +14,7 @@ export class ResourceRecordFieldComponent {
   constructor() { }
 
   ngOnInit(): void {
-    this.recordString = this.buildRecordService.toString();
+    this.recordString = this.buildRecordService.txtdmarcrecord();
   }
 
 }
