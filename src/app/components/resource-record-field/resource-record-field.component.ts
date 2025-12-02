@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { BuildRecordService } from 'src/app/services/build-record-service/build-record.service';
 
 @Component({
@@ -8,13 +8,8 @@ import { BuildRecordService } from 'src/app/services/build-record-service/build-
     standalone: false
 })
 export class ResourceRecordFieldComponent {
-  recordString?: string;
-  private buildRecordService = inject(BuildRecordService);
+  buildRecordService = inject(BuildRecordService);
 
   constructor() { }
-
-  ngOnInit(): void {
-    this.recordString = this.buildRecordService.txtdmarcrecord();
-  }
 
 }

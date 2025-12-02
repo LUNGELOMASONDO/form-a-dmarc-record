@@ -1,4 +1,4 @@
-import { Injectable, computed, signal, WritableSignal } from '@angular/core';
+import { Injectable, computed, signal, WritableSignal, Signal } from '@angular/core';
 import { DMARCPolicy } from 'src/models/DMARCPolicyType';
 import { DMARCRecord } from 'src/models/DMARCRecord';
 import { AgregateReportIntervalTag } from 'src/models/DMARCRecordTags/AggregateReportIntervalTag';
@@ -15,27 +15,30 @@ import { DMARCVersion } from 'src/models/DMARCVersionType';
 })
 export class BuildRecordService {
 
-  private _dmarcRecord: WritableSignal<DMARCRecord> = signal(Object.assign(new DMARCRecord(), {
-    v: (() => { const t = new DMARCVersionTag(); t.value = 'DMARC1'; return t; })(),
-    p: (() => { const t = new PolicyTag(); t.value = 'none'; return t; })()
-  }));
-
-  readonly DMARCRecord = this._dmarcRecord.asReadonly();
+  private _dmarcRecord: WritableSignal<DMARCRecord>;
+  DMARCRecord: Signal<Readonly<DMARCRecord>>;
 
   readonly txtdmarcrecord = computed(() => {
     let recordStr: string = "";
 
-    recordStr += this._dmarcRecord().v.tag + "=" + this._dmarcRecord().v.value + "; ";
-    recordStr += this._dmarcRecord().p.tag + "=" + this._dmarcRecord().p.value + "; ";
+    recordStr += this._dmarcRecord().v.tag + "=" + this._dmarcRecord().v.value + ";";
+    recordStr += " " + this._dmarcRecord().p.tag + "=" + this._dmarcRecord().p.value + ";";
+    recordStr += " " + this._dmarcRecord().pct?.tag + "=" + this._dmarcRecord().pct?.value + ";";
 
     return recordStr
   });
 
   constructor() { 
+    this._dmarcRecord = signal(Object.assign(new DMARCRecord(), {
+      v: (() => { const t = new DMARCVersionTag(); t.value = 'DMARC1'; return t; })(),
+      p: (() => { const t = new PolicyTag(); t.value = 'none'; return t; })(),
+      pct: (() => { const t = new PercentageTag(); t.value = 100; return t; })()
+    }));
 
+    this.DMARCRecord = this._dmarcRecord.asReadonly();
   }
 
-  set DMARCVersionTag(value: DMARCVersion) {
+  setDMARCVersionTag(value: DMARCVersion) {
     this._dmarcRecord.update(r => ({...r, v: (() => { 
         const t = new DMARCVersionTag(); 
         t.value = value; 
@@ -44,7 +47,7 @@ export class BuildRecordService {
     }));
   }
 
-  set PolicyTag(value: DMARCPolicy) {
+  setPolicyTag(value: DMARCPolicy) {
     this._dmarcRecord.update(r => ({...r, p: (() => { 
         const t = new PolicyTag(); 
         t.value = value; 
@@ -53,7 +56,7 @@ export class BuildRecordService {
     }));
   }
 
-  set AggregateReportURITag(value: string) {
+  setAggregateReportURITag(value: string) {
 
     const uri = value.startsWith('mailto:') ? value : `mailto:${value}`;
 
@@ -67,7 +70,7 @@ export class BuildRecordService {
     }
   }
 
-  set ForensicReportURITag(value: string) {
+  setForensicReportURITag(value: string) {
 
     const uri = value.startsWith('mailto:') ? value : `mailto:${value}`;
 
@@ -81,7 +84,7 @@ export class BuildRecordService {
     }
   }
 
-  set PercentageTag(value: number) {
+  setPercentageTag(value: number) {
     
     if (value >= 0 && value <= 100) {
       this._dmarcRecord.update(r => ({...r, pct: (() => { 
@@ -93,7 +96,7 @@ export class BuildRecordService {
     }
   }
 
-  set SubDomainPolicyTag(value: DMARCPolicy) {
+  setSubDomainPolicyTag(value: DMARCPolicy) {
     this._dmarcRecord.update(r => ({...r, sp: (() => { 
         const t = new SubDomainPolicyTag(); 
         t.value = value; 

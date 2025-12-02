@@ -21,4 +21,10 @@ export class TagDmarcversionComponent implements OnInit {
     this.dmarcVersion = this.buildrecordService.DMARCRecord().v;
     this.versionValue = this.dmarcVersion.value;
   }
+
+  onDMARCVersionChange(): void {
+    if (this.versionValue) {
+      this.buildrecordService.setDMARCVersionTag(this.versionValue);
+    }
+  }
 }
