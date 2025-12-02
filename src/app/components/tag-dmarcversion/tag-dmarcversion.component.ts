@@ -12,19 +12,17 @@ import { DMARCVersion } from "src/models/DMARCVersionType";
 export class TagDmarcversionComponent implements OnInit {
   dmarcVersion!: DMARCVersionTag;
   private buildrecordService = inject(BuildRecordService);
-  versionValue?: DMARCVersion;
   versions: DMARCVersion[] = ["DMARC1"];
 
   constructor() { }
 
   ngOnInit(): void {
     this.dmarcVersion = this.buildrecordService.DMARCRecord().v;
-    this.versionValue = this.dmarcVersion.value;
   }
 
   onDMARCVersionChange(): void {
-    if (this.versionValue) {
-      this.buildrecordService.setDMARCVersionTag(this.versionValue);
+    if (this.dmarcVersion.value) {
+      this.buildrecordService.setDMARCVersionTag(this.dmarcVersion.value);
     }
   }
 }

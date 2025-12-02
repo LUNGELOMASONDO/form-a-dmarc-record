@@ -12,19 +12,15 @@ import { PolicyTag } from 'src/models/DMARCRecordTags/PolicyTag';
 export class TagPolicyComponent implements OnInit{
   policy!: PolicyTag; 
   private buildrecordService = inject(BuildRecordService);
-  policyValue: DMARCPolicy;
   policies = ["none", "quarantine", "reject"];
 
-  constructor() { 
-    this.policyValue = "none";
-  }
+  constructor() { }
   
   ngOnInit(): void {
     this.policy = this.buildrecordService.DMARCRecord().p;
-    this.policyValue = this.policy.value;
   }
 
   onPolicyChange(): void {
-    this.buildrecordService.setPolicyTag(this.policyValue);
+    this.buildrecordService.setPolicyTag(this.policy.value);
   }
 }
