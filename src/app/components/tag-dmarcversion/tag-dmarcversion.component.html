@@ -3,7 +3,7 @@
     [tagPurpose]= this.dmarcVersion.purpose
 >
 </app-taglabel>
-<select id="dmarcversion" name="dmarcversion" [(ngModel)]="versionValue">
+<select id="dmarcversion" name="dmarcversion" [(ngModel)]="versionValue" (ngModelChange)="onDMARCVersionChange()">
     @for (dmarc_version of versions; track dmarc_version) {
         <option [value]="dmarc_version">{{ dmarc_version }}</option>
     } @empty {

@@ -3,7 +3,7 @@
     [tagPurpose]= this.policy.purpose
 >
 </app-taglabel>
-<select id="dmarcpolicy" name="dmarcpolicy"  [(ngModel)]="policyValue">
+<select id="dmarcpolicy" name="dmarcpolicy"  [(ngModel)]="policyValue" (ngModelChange)="onPolicyChange()">
     @for (p of policies; track p) {
         <option [value]="p">{{ p }}</option>
     } @empty {
