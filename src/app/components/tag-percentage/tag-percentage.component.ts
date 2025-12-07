@@ -12,16 +12,14 @@ export class TagPercentageComponent implements OnInit {
 
   percentage!: PercentageTag;
   buildrecordService = inject(BuildRecordService);
-  percentageValue?: number;
-
   constructor() { }
 
   ngOnInit(): void{
     this.percentage = new PercentageTag();
-    this.percentageValue = this.buildrecordService.DMARCRecord().pct?.value;
+    this.percentage.value = this.buildrecordService.DMARCRecord().pct?.value;
   }
 
   onUpdatePercentage(): void {
-    this.buildrecordService.setPercentageTag(this.percentageValue || 0);
+    this.buildrecordService.setPercentageTag(this.percentage.value || 0);
   }
 }

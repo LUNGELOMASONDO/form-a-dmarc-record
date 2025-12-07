@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { BuildRecordService } from 'src/app/services/build-record-service/build-record.service';
 import { URIAggregateTag } from 'src/models/DMARCRecordTags/URIAggregateTag';
 
 @Component({
@@ -9,11 +10,19 @@ import { URIAggregateTag } from 'src/models/DMARCRecordTags/URIAggregateTag';
 })
 export class TagRuaComponent implements OnInit{
   uriAggregateReporting!: URIAggregateTag;
+  private buildrecordService = inject(BuildRecordService);
+  uriValue: string = "";
 
   constructor() { }
   
   ngOnInit(): void {
     this.uriAggregateReporting = new URIAggregateTag();
+    if (this.buildrecordService.DMARCRecord().rua?.value) {
+      this.uriAggregateReporting.value = this.buildrecordService.DMARCRecord().rua?.value;
+    }
   }
   
+  onURIAggregateReportingChange(): void {
+    this.buildrecordService.setAggregateReportURITag(this.uriValue);
+  }
 }

@@ -1,5 +1,8 @@
 <small class="success-message">
     <fa-icon [icon]="faCheck"></fa-icon>
     Your DMARC record is ready to be published.
-      <span style="color:blue;cursor:pointer;">Copy</span>
+    @if(buildrecordService.isValidRecord())
+    {
+      <span style="color:blue;cursor:pointer;" (click)="OnClick()">Copy</span>
+    }
 </small>

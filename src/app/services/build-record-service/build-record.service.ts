@@ -1,7 +1,6 @@
 import { Injectable, computed, signal, WritableSignal, Signal } from '@angular/core';
 import { DMARCPolicy } from 'src/models/DMARCPolicyType';
 import { DMARCRecord } from 'src/models/DMARCRecord';
-import { AgregateReportIntervalTag } from 'src/models/DMARCRecordTags/AggregateReportIntervalTag';
 import { DMARCVersionTag } from 'src/models/DMARCRecordTags/DMARCVersionTag';
 import { PercentageTag } from 'src/models/DMARCRecordTags/PercentageTag';
 import { PolicyTag } from 'src/models/DMARCRecordTags/PolicyTag';
@@ -18,12 +17,29 @@ export class BuildRecordService {
   private _dmarcRecord: WritableSignal<DMARCRecord>;
   DMARCRecord: Signal<Readonly<DMARCRecord>>;
 
-  readonly txtdmarcrecord = computed(() => {
+  readonly invalidRecordReasons: Signal<Readonly<string[]>> = computed(() => {
+    let reasons: string[] = [];
+    return reasons;
+  });
+
+  readonly hints: Signal<Readonly<string[]>> = computed(() => {
+    const hintsArray: string[] = [];
+    return hintsArray;
+  });
+
+  readonly isValidRecord: Signal<Readonly<boolean>> = computed(() => {
+    return this.invalidRecordReasons().length === 0;
+  });
+
+  readonly txtdmarcrecord: Signal<Readonly<string>> = computed(() => {
     let recordStr: string = "";
 
     recordStr += this._dmarcRecord().v.tag + "=" + this._dmarcRecord().v.value + ";";
     recordStr += " " + this._dmarcRecord().p.tag + "=" + this._dmarcRecord().p.value + ";";
     recordStr += " " + this._dmarcRecord().pct?.tag + "=" + this._dmarcRecord().pct?.value + ";";
+
+    if(this._dmarcRecord().rua) { recordStr += " " + this._dmarcRecord().rua?.tag + "=" + this._dmarcRecord().rua?.value + ";"; }
+    if(this._dmarcRecord().ruf) { recordStr += " " + this._dmarcRecord().ruf?.tag + "=" + this._dmarcRecord().ruf?.value + ";"; }
 
     return recordStr
   });
@@ -32,7 +48,7 @@ export class BuildRecordService {
     this._dmarcRecord = signal(Object.assign(new DMARCRecord(), {
       v: (() => { const t = new DMARCVersionTag(); t.value = 'DMARC1'; return t; })(),
       p: (() => { const t = new PolicyTag(); t.value = 'none'; return t; })(),
-      pct: (() => { const t = new PercentageTag(); t.value = 100; return t; })()
+      pct: (() => { const t = new PercentageTag(); t.value = 100; return t; })(),
     }));
 
     this.DMARCRecord = this._dmarcRecord.asReadonly();
@@ -68,6 +84,9 @@ export class BuildRecordService {
         })()
       }));
     }
+    else {
+      this._dmarcRecord.update(r => ({...r, rua: undefined }));
+    }
   }
 
   setForensicReportURITag(value: string) {
@@ -81,6 +100,9 @@ export class BuildRecordService {
           return t; 
         })()
       }));
+    }
+    else {
+      this._dmarcRecord.update(r => ({...r, ruf: undefined }));
     }
   }
 
