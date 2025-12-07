@@ -3,4 +3,4 @@
     [tagPurpose]= this.uriForensicReporting.purpose
 >
 </app-taglabel>
-<input type="text" id="ruf">
+<input type="text" id="ruf" [(ngModel)]="this.uriValue" (ngModelChange)="onURIForensicReportingChange()">
