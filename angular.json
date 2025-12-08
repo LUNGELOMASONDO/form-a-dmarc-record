@@ -21,7 +21,8 @@
           "builder": "@angular/build:application",
           "options": {
             "outputPath": {
-              "base": "dist/formadmarcrecord"
+              "base": "dist/formadmarcrecord",
+              "browser": "browser"
             },
             "index": "src/index.html",
             "polyfills": [
@@ -103,6 +104,9 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
