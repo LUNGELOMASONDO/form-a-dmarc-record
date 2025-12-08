@@ -21,7 +21,7 @@
           "builder": "@angular/build:application",
           "options": {
             "outputPath": {
-              "base": "dist/formadmarcrecord",
+              "base": "dist/form-a-dmarc-record",
               "browser": "browser"
             },
             "index": "src/index.html",
@@ -41,6 +41,8 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/form-a-dmarc-record/",
+              "deployUrl": "/form-a-dmarc-record/",
               "budgets": [
                 {
                   "type": "initial",
